@@ -51,6 +51,8 @@ public class OrderPageScooter {
     //Выбор цвета самоката
     private final String xpathPeriodFieldDropDown = "//div[@class ='Dropdown-option' and text()='%s']";
 
+    private final String colourField = "%s";
+
     public OrderPageScooter(WebDriver driver) {
         this.driver = driver;
     }
@@ -92,12 +94,8 @@ public class OrderPageScooter {
         driver.findElement(By.xpath(String.format(xpathPeriodFieldDropDown, period))).click();
     }
 
-    public void clickColourFieldBlack() {
-        driver.findElement(colourFieldBlack).click();
-    }
-
-    public void clickColourFieldGrey() {
-        driver.findElement(colourFieldGrey).click();
+    public void clickColour(String color) {
+        driver.findElement(By.id(String.format(colourField, color))).click();
     }
 
     public void setCommentField(String comment) {
@@ -116,9 +114,10 @@ public class OrderPageScooter {
     }
 
     // Заполнение формы "Про аренду"
-    public void aboutRentalFormField(String date, String period, String comment) {
+    public void aboutRentalFormField(String date, String period, String color, String comment) {
         setDateField(date);
         setPeriodField(period);
+        clickColour(color);
         setCommentField(comment);
 
     }
