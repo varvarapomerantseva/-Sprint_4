@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.concurrent.TimeUnit;
 
 public class HomePageScooter {
+    // Кнопка "Заказать" вверху страницы
     private final By upperOrderButton = By.xpath(".//button[@class='Button_Button__ra12g']");
     // Кнопка "Заказать" внизу страницы
     private final By lowerOrderButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
@@ -23,20 +24,23 @@ public class HomePageScooter {
         this.driver = driver;
     }
 
-    public OrderPageScooter clickUpperOrderButton() {
-        driver.findElement(upperOrderButton).click();
-        return new OrderPageScooter(driver);
-    }
-
-    public OrderPageScooter clickLowerOrderButton() {
-        WebElement element = driver.findElement(lowerOrderButton);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        driver.findElement(lowerOrderButton).click();
-        return new OrderPageScooter(driver);
-    }
-
     public void clickCookieButton() {
         driver.findElement(cookieButton).click();
+    }
+
+    public OrderPageScooter clickOrderButton(String button) {
+        if (button == "upper") {
+            driver.findElement(upperOrderButton).click();
+            return new OrderPageScooter(driver);
+        }
+        if(button == "lower") {
+            WebElement element = driver.findElement(lowerOrderButton);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+            driver.findElement(lowerOrderButton).click();
+            return new OrderPageScooter(driver);
+
+        }
+        return new OrderPageScooter(driver);
     }
 
     public String getAnswerTheQuestion(String number) {
